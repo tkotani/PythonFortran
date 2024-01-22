@@ -1,8 +1,8 @@
 subroutine hello2() bind(C)
+  use m_comm,only: comm,size,rank
   implicit none
   include "mpif.h"
-  integer(4) :: comm, size, rank, ierr
-  call MPI_Comm_size(comm, size, ierr)
-  call MPI_Comm_rank(comm, rank, ierr)
+  integer(4) :: ierr
+  call MPI_barrier(comm,ierr)
   print *, "Hello World222 at rank ", rank, "/", size
 end subroutine hello2

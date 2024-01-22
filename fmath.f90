@@ -8,15 +8,16 @@ module m_testx
 contains
   subroutine hello() bind(C)
     implicit none
+    complex(8):: cc
     if(init) then
        print *, "Hello World at rank ", rank, "/", size,a
        init=.false.
        a=1.23
        n=1000
-       allocate(ccc(n,n),source=(1d0,2d0))
+       cc=rank
+       allocate(ccc(n,n),source=cc)
     else
-       print *, "Hello111 World at rank ", rank, "/", size,a
-       print *,'sum(ccc)=',sum(ccc)
+       print *, "Hello111 World at rank ", size, rank ,'sum(ccc)=',sum(ccc),a
     endif
   end subroutine hello
 end module m_testx
