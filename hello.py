@@ -1,4 +1,4 @@
-#mpif90 -shared -fPIC -o fmath.so fmath.f90
+#mpif90 -shared -fPIC -o fmath.so *.f90
 #mpiexec -n 4 python3 ./hello.py | sort
 from ctypes import *
 import numpy as np
