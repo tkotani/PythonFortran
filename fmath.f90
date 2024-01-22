@@ -1,18 +1,6 @@
-module m_comm
-  integer,protected:: comm,size,rank
-contains
-  subroutine setcomm(commin) bind(C)
-    implicit none
-    include "mpif.h"
-    integer(4) :: ierr,n,commin
-    call MPI_Comm_size(commin, size, ierr)
-    call MPI_Comm_rank(commin, rank, ierr)
-    comm=commin
-  end subroutine setcomm
-end module m_comm
-
 module m_testx
   use m_comm,only: size,rank
+  !include "mpif.h"
   integer,protected:: iii,n
   logical:: init=.true.
   real(8):: a=3.21
@@ -20,7 +8,6 @@ module m_testx
 contains
   subroutine hello() bind(C)
     implicit none
-    include "mpif.h"
     if(init) then
        print *, "Hello World at rank ", rank, "/", size,a
        init=.false.
