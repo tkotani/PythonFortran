@@ -4,3 +4,4 @@ This is a test for python calling fortran codes in f90.
 
 >mpiexec -n 4 python3 ./hello.py 
 
+See https://mnakao.net/data/2018/HPFPC.pdf
