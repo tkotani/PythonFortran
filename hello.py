@@ -6,13 +6,11 @@ from mpi4py import MPI
 
 comm = MPI.COMM_WORLD
 comm = comm.py2f()
-
 fmath = np.ctypeslib.load_library("fmath.so",".")
-fmath.hello.argtypes = [ POINTER(c_int32) ]
-fmath.hello.restype  = c_void_p
-fmath.hello2.argtypes = [ POINTER(c_int32) ]
-fmath.hello2.restype  = c_void_p
+fmath.setcomm.argtypes = [ POINTER(c_int32) ]
+fmath.setcomm.restype  = c_void_p
+fmath.setcomm(c_int32(comm))
 
-fmath.hello(c_int32(comm))
-fmath.hello(c_int32(comm))
-fmath.hello2(c_int32(comm))
+fmath.hello()
+fmath.hello()
+fmath.hello2()

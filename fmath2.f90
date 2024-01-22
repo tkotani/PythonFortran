@@ -1,4 +1,4 @@
-subroutine hello2(comm) bind(C)
+subroutine hello2() bind(C)
   implicit none
   include "mpif.h"
   integer(4) :: comm, size, rank, ierr
