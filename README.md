@@ -8,10 +8,15 @@
 2. See our main program hello.py. We init MPI by mpi4py in setcomm.py.
 
 ## Usage of example
-To run example,
+To run example,o
 
 $ mpif90 -shared -fPIC -o ecaljfortran.so *.f90
 
 $ mpiexec -n 4 python3 ./hello.py 
 
 ### Our code is inspired by https://mnakao.net/data/2018/HPFPC.pdf
+
+-fpic - 位置に依存しないコードを生成します。
+
+* subroutine foobar bind(C) is Global!
+Even when you define foobar bind(C) in a module, it is global.

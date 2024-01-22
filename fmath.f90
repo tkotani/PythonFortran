@@ -5,6 +5,8 @@ module m_testx
   logical:: init=.true.
   real(8):: a=3.21
   complex(8),allocatable:: ccc(:,:)
+  private
+  !public hello
 contains
   subroutine hello() bind(C)
     implicit none
@@ -17,7 +19,7 @@ contains
        cc=rank
        allocate(ccc(n,n),source=cc)
     else
-       print *, "Hello111 World at rank ", size, rank ,'sum(ccc)=',sum(ccc),a
+       print *, "Hello111 World at rank ", size, rank ,'sum(ccc)=',sum(ccc)/n/n,a
     endif
   end subroutine hello
 end module m_testx
