@@ -1,4 +1,6 @@
 # Run MPI fortran codes successively when no arguments are exchanged.
+# See setcomm.py
+
 from setcomm import *
 import os
 
