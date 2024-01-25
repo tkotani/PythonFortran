@@ -8,6 +8,11 @@ where we have setcomm.py and m_comm.py, so as to combine hello.py and fortran su
 To run example, o
 
 $ mpif90 -shared -fPIC -o ecaljF.so *.f90
+(or
+mpif90 -c -fPIC m_comm.f90 -o m_comm.o
+mpif90 -c -fPIC  fmath.f90 -o fmath.o
+mpif90 -shared ecaljF.so m_comm.o fmath.o !link to get .so
+)
 
 $ mpiexec -n 4 python3 ./hello.py 
 
@@ -28,6 +33,10 @@ This implies we can keep what we got in modules in the next call of fortran prog
 ## NOTE
 1. compilar option -fpic - non-position-dependent code.
 2. Evvensubroutine foobar bind(C) is Global, even when you define foobar bind(C) in a module, it is global.
-3. Thanks. This sample is inspired by discussion with A.Togo and Nakano in NIMS. And I saw
+3. subroutines in module is global from python. Thus we can call subroutine hello2, without specifing use foobar.
+
+
+## Thanks
+This code is inspired by discussion with Atsushi Togo and NAKANO Kosuke in NIMS. And I read
 https://mnakao.net/data/2018/HPFPC.pdf.
-4. subroutines in module is global from python. Thus we can call subroutine hello2, without specifing use foobar.
+
