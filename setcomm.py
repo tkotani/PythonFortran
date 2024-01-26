@@ -7,7 +7,8 @@ from ctypes import *
 import numpy as np
 from mpi4py import MPI
 
-def setcomm(aaa): #Pass communicator to module m_comm.f90
+def setcomm(aaa):
+    '''Pass communicator to module m_comm.f90'''
     comm = MPI.COMM_WORLD
     comm = comm.py2f()
     eee = np.ctypeslib.load_library(aaa,".")
@@ -16,11 +17,14 @@ def setcomm(aaa): #Pass communicator to module m_comm.f90
     eee.setcomm(c_int32(comm))
     return eee
 
-def callF(eee,mmm=[]):
+def callF(foobar,arguments=[]):
+    '''Equivalent to 'call foobar(a,b,c,...)' in fortran, where we supply arguments=[a,b,c,...]. 
+       a,b,c,... are integer,logical, or real(8) in current version.'''
     argtypess=[]
     data=[]
-    for ii in  mmm:
+    for ii in arguments:
         #print(ii,type(ii))
+        #NOTE: PI42=POINTER(c_int)(c_int(42)): 42 is converted to binary represenation in C. and Its pointer is PI42
         if(type(ii)==type(1)): 
             argtypess.append( POINTER(c_int32) )
             data.append(c_int32(ii))
@@ -34,9 +38,9 @@ def callF(eee,mmm=[]):
 ##            argtypess.append( POINTER(c_char_p) )
 ##            data.append(c_char_p(ii.encode()))
 #    print(f' outputargs=',argtypess)
-    eee.argtypes= argtypess
+    foobar.argtypes= argtypess
     if(len(argtypess)==0):
-        eee()
+        foobar()
     else:
-        eee(*data)
+        foobar(*data)
     return
