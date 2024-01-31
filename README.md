@@ -1,6 +1,6 @@
 # A simple example for python calling fortran codes in MPI
 
-Main program is in python, where we call fortran subroutines from the main program.
+Main program is in python invoking MPI by m4py. Then we call fortran subroutines from the main program.
 
 ## Run an example
 
