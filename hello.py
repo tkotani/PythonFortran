@@ -1,12 +1,12 @@
 #!/usr/bin/env python3 
 #>mpirun -np 4 pysample
-from setcomm import callF,setcomm
+from setcomm import callF,setcomm,ecaljF,rank,size,comm
 from mpi4py import MPI
 import ctypes
 import sys
-# print(*sys.argv[1:])
-# load ecalj and MKL libraries. Return ecalj.foobar and communicator
-ecaljF,rank,size,comm= setcomm("ecaljF.so", '/usr/lib/x86_64-linux-gnu/libmkl_rt.so')
+
+#scriptpath = os.path.dirname(os.path.realpath(__file__))+'/'
+#arglist=' '.join(sys.argv[1:])
 print("Hello World at rank {0}/{1}".format(rank, size))
 
 # Run fortran codes
@@ -18,7 +18,6 @@ if(rank==3):
     callF( ecaljF.hello3, [True, 34, 18.2, 9.3] )
 else:
     callF( ecaljF.hello3, [True, 135, 8.6, 9.3] )
-
-text='123xabcdefc  afdafa adfa456'
+text='123xabcdefc  -afda fa adfa456'
 print (f'sending text to fortran=',text)
 callF(ecaljF.hello4, [text,len(text)])

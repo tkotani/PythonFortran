@@ -8,7 +8,9 @@ This example call subroutines in fmath.f90 from the program hello.py.
 That is, we combine hello.py and fortran subroutines.
 We have two files setcomm.py and m_comm.py, which are keys to combine them.
 
-To run example,
+To run example, we generate mklloc.txt in advance;
+>mpif90 dummy.f90 -lmkl_rt;ldd a.out|grep mkl>mklloc.txt
+
 
 Step 1. Generate ecaljF.so from fortran source codes.  
 $ mpif90 -shared -fPIC -o ecaljF.so *.f90  
@@ -19,6 +21,8 @@ $ mpif90 -shared ecaljF.so m_comm.o fmath.o
 
 Step 2. Call hellop.py in the usual manner.  
 $ mpiexec -n 4 python3 ./hello.py
+
+
 
 ## How this sample works?
 
